@@ -1,0 +1,37 @@
+{
+  "name": "ub-proto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.coffee",
+  "scripts": {
+    "build-html": "gulp gulpsmith"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matori/ub-proto.git"
+  },
+  "author": "matori <pnr.matori@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matori/ub-proto/issues"
+  },
+  "homepage": "https://github.com/matori/ub-proto#readme",
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "gulp": "^3.9.0",
+    "gulp-front-matter": "^1.2.3",
+    "gulp-if": "^2.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-util": "^3.0.7",
+    "gulpsmith": "^0.5.5",
+    "metalsmith": "^2.1.0",
+    "metalsmith-branch": "0.0.4",
+    "metalsmith-permalinks": "^0.4.0",
+    "pretty-hrtime": "^1.0.1",
+    "require-dir": "^0.3.0"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1"
+  }
+}
