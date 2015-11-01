@@ -7,6 +7,10 @@ assetsSrc = "#{src}/assets"
 
 module.exports =
 
+    metalsmith:
+        patterns:
+            article: "articls/*.html"
+
     gulpsmith:
         src: "./contents/**/*.html"
         template: ""

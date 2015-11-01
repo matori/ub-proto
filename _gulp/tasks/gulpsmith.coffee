@@ -3,14 +3,15 @@
 gulp = require "gulp"
 frontMatter = require "gulp-front-matter"
 _ = require "lodash"
-metalsmith = require "../metalsmith/metalsmith"
-assignFrontMatter = require "../metalsmith/assignFrontMatter"
+gulpsmith = require "../metalsmith/gulpsmith"
 
 config = require "./../config"
 
 gulp.task "gulpsmith", ->
     gulp.src config.gulpsmith.src
     .pipe frontMatter()
-    .on "data", assignFrontMatter
-    .pipe metalsmith()
+    .on "data", (file) ->
+        _.assign file, file.frontMatter
+        delete file.frontMatter
+    .pipe gulpsmith()
     .pipe gulp.dest config.gulpsmith.dest
