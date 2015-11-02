@@ -13,9 +13,12 @@ module.exports = ->
     .metadata metadata
 #    .use ->
 #        console.log arguments
-    .use publish "_draft", "public"
+    .use publish
+        draftDir: "_draft"
+        publicDir: "."
+        publishKey: "public"
 #    .use ->
-#        console.log arguments
+#        console.log arguments[0]
     .use collections
         article:
             pattern: "articles/*.html"

@@ -1,0 +1,4 @@
+if collections && collections.article
+    ol
+        each item in collections.article
+            li: a(href="/#{item.path}/") #{item.mode}
