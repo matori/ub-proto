@@ -4,6 +4,37 @@ fs = require "fs-extra"
 path = require "path"
 _ = require "lodash"
 
+getParentDir = (files, rootDir) ->
+    fileRelPath = Object.keys(files)[0]
+    fileAbsPath = files[fileRelPath].history[0]
+    regex = new RegExp "^#{rootDir}|#{fileRelPath}$", "g"
+    fileAbsPath.replace regex, ""
+
+isDraft = (file, fileObj, config) ->
+    file.indexOf(config.draftDir) is 0 and fileObj.hasOwnProperty config.publishKey
+
+getNewPath = (originalPath, config) ->
+    newPath = originalPath.replace config.draftDir, config.publicDir
+    path.resolve newPath
+
+createFileKey = (rootDir, parentDir, newPath)->
+    parentPath = path.join rootDir, parentDir
+    newPath.replace parentPath, ""
+
+moveFile = (files, fileObj, dir, config) ->
+    originalPath = path.resolve fileObj.history[0]
+    newPath = getNewPath originalPath, config
+    newFile = createFileKey dir.root, dir.parent, newPath
+
+    fileObj.history = [newPath]
+    files[newFile] = _.assign {}, fileObj
+    console.log files[newFile]
+
+    fs.move originalPath, newPath, (err) ->
+        if err then console.error err
+
+    files
+
 publish = (userConfig) ->
     opts =
         draftDir: "draft"
@@ -13,24 +44,17 @@ publish = (userConfig) ->
     config = _.assign opts, userConfig
 
     (files, metalsmith, done) ->
-        Object.keys(files).forEach (file) ->
-            fileObj = files[file]
+        rootDir = do metalsmith.directory
+        dir =
+            root: rootDir
+            parent: getParentDir files, rootDir
 
-            if file.indexOf(config.draftDir) isnt 0 or not fileObj.hasOwnProperty(config.publishKey)
+        _.forEach files, (fileObj, file) ->
+            unless isDraft file, fileObj, config
                 return
 
             if fileObj[config.publishKey] is true
-                originalPath = fileObj.history[0]
-                newFile = file.replace config.draftDir, config.publicDir
-                if newFile.charAt(0) is "."
-                    newFile = newFile.slice 2
-                srcPath = originalPath
-                destPath = originalPath.replace config.draftDir, config.publicDir
-                files[newFile] = _.assign {}, files[file]
-                files[newFile].history = [destPath]
-                fs.move srcPath, destPath, (err) ->
-                    if err
-                        console.error err
+                files = moveFile files, fileObj, dir, config
 
             delete files[file]
 
