@@ -7,11 +7,14 @@ gulpsmith = require "../metalsmith/gulpsmith"
 
 config = require "./../config"
 
+{argv} = require "yargs"
+
+console.log argv
 gulp.task "gulpsmith", ->
     gulp.src config.gulpsmith.src
     .pipe frontMatter()
     .on "data", (file) ->
         _.assign file, file.frontMatter
         delete file.frontMatter
-    .pipe gulpsmith()
+#    .pipe gulpsmith()
     .pipe gulp.dest config.gulpsmith.dest

@@ -13,7 +13,7 @@ module.exports = ->
     gulpsmith()
     .metadata metadata
     .use publish
-        draftDir: "_draft"
+        draftDir: "draft"
         publicDir: "."
         publishKey: "public"
     .use collections

@@ -12,7 +12,7 @@ module.exports =
             article: "articls/*.html"
 
     gulpsmith:
-        src: "./contents/**/*.html"
+        src: "./_contents/**/*.html"
         template: ""
         data: ""
         dest: dest
