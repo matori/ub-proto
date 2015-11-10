@@ -7,6 +7,7 @@ tags = require "metalsmith-tags"
 htmlMinifier = require "metalsmith-html-minifier"
 layouts = require "metalsmith-layouts"
 permalinks = require "./lib/permalinks"
+feed = require "./lib/feed"
 publish = require "./lib/publish"
 options = require "./lib/options"
 config = require "./_config"
@@ -26,6 +27,12 @@ build = (dir) ->
     .use permalinks "public/pages/*.html", ":slug"
     .use permalinks "public/pages/*/*.html", ":parent/:slug"
     .use permalinks "categories/**/*.html", ""
+    .use feed
+        destination: "feed/index.xml"
+        data:
+            layout: "feed.jade"
+    .use ->
+        console.log arguments
     .use layouts config.layoutsPlugin
     .use msIf options.publish, htmlMinifier config.htmlMinifierPlugin
     .build (err, files) ->
