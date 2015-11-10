@@ -3,7 +3,9 @@
 branch = require "metalsmith-branch"
 permalinks = require "metalsmith-permalinks"
 
-module.exports = (filter, pattern) ->
+plugin = (filter, pattern) ->
     branch filter
     .use permalinks
         pattern: pattern
+
+module.exports = plugin
