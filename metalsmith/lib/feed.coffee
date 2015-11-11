@@ -4,7 +4,8 @@ _ = require "lodash"
 
 plugin = (userSettings = {}) ->
     dest = userSettings.destination or "rss.xml"
-    data = {contents: new Buffer "", "utf8"}
+    data =
+        contents: new Buffer "", "utf8"
 
     if userSettings.data?.contents?
         delete userSettings.data.contents

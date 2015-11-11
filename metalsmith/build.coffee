@@ -35,12 +35,14 @@ build = (dir) ->
         .use permalinks permalink.matchFilter, permalink.pattern
 
     metalsmith
+    .use feed config.feedPlugin
     .use layouts config.layoutsPlugin
     .use msIf options.publish, htmlMinifier config.htmlMinifierPlugin
-    .use feed config.feedPlugin
 
     # build
     metalsmith
+    .use (files) ->
+        console.log files
     .build (err, files) ->
         if err then throw err
         logger.end config.src, config.build, files

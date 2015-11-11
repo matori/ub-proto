@@ -1,3 +1,58 @@
-//
-   Created by matori on 2015/11/10.
+doctype xml
+rss(version="2.0",
+    xmlns:atom="http://www.w3.org/2005/Atom",
+    xmlns:content="http://purl.org/rss/1.0/modules/content/",
+    xmlns:creativeCommons="http://blogs.law.harvard.edu/tech/creativeCommonsRssModule")
+    channel
+        title Test feed
+        link http://example.com
+        description
+            :cdata
+                これは実験用 RSS です。
+        language ja-JP
+        copyiright test
+        managingEditor example@example.com (George Matesky)
+        webMaster example@example.com (George Matesky)
+        pubDate Sun, 29 Aug 2004 15:42:09 +0900
+        lastBuildDate Sun, 29 Aug 2004 15:42:09 +0900
+        //- category Weblog
+        generator Metalsmith
+        docs http://www.rssboard.org/rss-specification
+        //- cloud
+        //- ttl 60
+        image
+            url https://source.unsplash.com/random
+            title John Doe's Weblog
+            link http://example.com/john.d/
+            description John Doe's Weblog
+            width 144
+            height 400
+        //- rating
+        //- textinput
+            title
+            description
+            name
+            link
+        //- skipHours
+            each hour in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+                day= hour
+        //- skipDays
+            each day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+                day= day
+        atom:link(href="http://example.com/feed/", rel="self", type="application/rss+xml")/
+        creativeCommons:license http://creativecommons.org/licenses/by-nc/4.0/
+        item
+            title てすと
+            link http://example.com/article.html
+            description ダミー記事
+            pubDate Mon, 30 Aug 2004 15:36:22 +0900
+            author example@example.com (George Matesky)
+            category test
+            guid(isPermaLink="true") http://example.com/article.html
+            content:encoded
+                :cdata
+                    てｓｔ
+            //- comments
+            //- enclosure(url="", length="", type="")
+            //- source(url="")
 
