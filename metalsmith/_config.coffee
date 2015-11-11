@@ -7,6 +7,10 @@ module.exports =
     clean: false
     build: "build"
 
+    metadataFiles: [
+        "../_data/site.yml"
+    ]
+
     publishPlugin:
         draftDir: "draft"
         publicDir: "public"

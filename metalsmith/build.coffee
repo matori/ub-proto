@@ -9,6 +9,7 @@ layouts = require "metalsmith-layouts"
 permalinks = require "./lib/permalinks"
 feed = require "./lib/feed"
 publish = require "./lib/publish"
+loadMetadata = require "./lib/loadMetadata"
 options = require "./lib/options"
 logger = require "./lib/logger"
 config = require "./_config"
@@ -24,6 +25,7 @@ build = (dir) ->
     .ignore config.ignore
     .destination config.build
     .clean config.clean
+    .metadata loadMetadata dir, config.src, config.metadataFiles
 
     metalsmith
     .use msIf options.publish, publish config.publishPlugin

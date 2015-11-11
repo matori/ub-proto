@@ -29,6 +29,7 @@
     "gulp-plumber": "^1.0.1",
     "gulp-util": "^3.0.7",
     "jade": "^1.11.0",
+    "js-yaml": "^3.4.3",
     "metalsmith": "^2.1.0",
     "metalsmith-branch": "0.0.4",
     "metalsmith-collections": "^0.7.0",
