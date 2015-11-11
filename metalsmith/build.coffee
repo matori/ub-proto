@@ -1,5 +1,6 @@
 "use strict"
 
+_ = require "lodash"
 Metalsmith = require "metalsmith"
 msIf = require "metalsmith-if"
 collections = require "metalsmith-collections"
@@ -13,28 +14,31 @@ options = require "./lib/options"
 config = require "./_config"
 
 build = (dir) ->
+    metalsmith = new Metalsmith dir
 
-    Metalsmith dir
+    # initialize
+    metalsmith
     .source config.src
     .ignore config.ignore
     .destination config.build
     .clean config.clean
+
+    metalsmith
     .use msIf options.publish, publish config.publishPlugin
     .use collections config.collectionsPlugin
     .use tags config.tagsPlugin
-    .use permalinks "{public,draft}/articles/*.html", "articles/:slug"
-    .use permalinks "{public,draft}/documents/*.html", "documents/:slug"
-    .use permalinks "public/pages/*.html", ":slug"
-    .use permalinks "public/pages/*/*.html", ":parent/:slug"
-    .use permalinks "categories/**/*.html", ""
-    .use feed
-        destination: "feed/index.xml"
-        data:
-            layout: "feed.jade"
-    .use ->
-        console.log arguments
+
+    for permalink in config.permalinksPlugin
+        metalsmith
+        .use permalinks permalink.matchFilter, permalink.pattern
+
+    metalsmith
     .use layouts config.layoutsPlugin
     .use msIf options.publish, htmlMinifier config.htmlMinifierPlugin
+    .use feed config.feedPlugin
+
+    # build
+    metalsmith
     .build (err, files) ->
         if err then throw err
         console.log "Metalsmith created #{Object.keys(files).length} files."

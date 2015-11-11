@@ -12,6 +12,19 @@ module.exports =
         publicDir: "public"
         publishKey: "public"
 
+    permalinksPlugin: [
+        {matchFilter: "{public,draft}/articles/*.html", pattern: "articles/:slug"}
+        {matchFilter: "{public,draft}/documents/*.html", pattern: "documents/:slug"}
+        {matchFilter: "public/pages/*.html", pattern: ":slug"}
+        {matchFilter: "public/pages/*/*.html", pattern: ":parent/:slug"}
+        {matchFilter: "categories/**/*.html", pattern: ""}
+    ]
+
+    feedPlugin:
+        destination: "feed/index.xml"
+        data:
+            layout: "feed.jade"
+
     collectionsPlugin:
         article:
             pattern: "{public,draft}/articles/*.html"
