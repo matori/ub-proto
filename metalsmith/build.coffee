@@ -14,7 +14,6 @@ options = require "./lib/options"
 logger = require "./lib/logger"
 config = require "./_config"
 
-
 build = (dir) ->
     logger.start config.src
     metalsmith = new Metalsmith dir
@@ -43,8 +42,9 @@ build = (dir) ->
 
     # build
     metalsmith
-    .use (files) ->
+    .use (files, metalsmith) ->
         console.log files
+        console.log metalsmith
     .build (err, files) ->
         if err then throw err
         logger.end config.src, config.build, files
