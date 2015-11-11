@@ -1,6 +1,5 @@
 "use strict"
 
-_ = require "lodash"
 Metalsmith = require "metalsmith"
 msIf = require "metalsmith-if"
 collections = require "metalsmith-collections"
@@ -11,9 +10,12 @@ permalinks = require "./lib/permalinks"
 feed = require "./lib/feed"
 publish = require "./lib/publish"
 options = require "./lib/options"
+logger = require "./lib/logger"
 config = require "./_config"
 
+
 build = (dir) ->
+    logger.start config.src
     metalsmith = new Metalsmith dir
 
     # initialize
@@ -41,6 +43,6 @@ build = (dir) ->
     metalsmith
     .build (err, files) ->
         if err then throw err
-        console.log "Metalsmith created #{Object.keys(files).length} files."
+        logger.end config.src, config.build, files
 
 module.exports = build
