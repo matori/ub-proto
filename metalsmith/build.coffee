@@ -12,7 +12,7 @@ publish = require "./lib/publish"
 loadMetadata = require "./lib/loadMetadata"
 options = require "./lib/options"
 logger = require "./lib/logger"
-config = require "./_config"
+config = require "./config"
 
 build = (dir) ->
     logger.start config.src
@@ -42,9 +42,6 @@ build = (dir) ->
 
     # build
     metalsmith
-    .use (files, metalsmith) ->
-        console.log files
-        console.log metalsmith
     .build (err, files) ->
         if err then throw err
         logger.end config.src, config.build, files
