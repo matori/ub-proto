@@ -5,6 +5,6 @@ gulp = require "gulp"
 
 gulp.task "metalsmith", (cb) ->
     exec "node metalsmith", (err, stdout, stderr) ->
-        console.log stdout
-        console.log stderr
+        if stdout then console.log stdout
+        if stderr then console.log stderr
         cb err

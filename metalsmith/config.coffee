@@ -16,6 +16,22 @@ module.exports =
         publicDir: "public"
         publishKey: "public"
 
+    formatDatePlugin: [
+        key: "date"
+        newKey: "fmtDate"
+        format: "YYYY-MM-DD"
+        locale: undefined
+    ,
+        key: "modified"
+        newKey: "fmtModified"
+        format: "YYYY-MM-DD"
+        locale: undefined
+    ]
+
+    lastBuildPlugin:
+        format: "YYYY MM DD"
+        locale: "ja"
+
     permalinksPlugin: [
         {matchFilter: "{public,draft}/articles/*.html", pattern: "articles/:slug"}
         {matchFilter: "{public,draft}/documents/*.html", pattern: "documents/:slug"}
@@ -30,11 +46,11 @@ module.exports =
             layout: "feed.jade"
 
     collectionsPlugin:
-        article:
+        articles:
             pattern: "{public,draft}/articles/*.html"
             sortBy: "date"
             reverse: true
-        document:
+        documents:
             pattern: "{public,draft}/documents/*.html"
             sortBy: "date"
             reverse: true

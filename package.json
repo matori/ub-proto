@@ -6,9 +6,10 @@
   "engines": {
     "node": ">= 4.0.0"
   },
-  "main": "gulpfile.coffee",
+  "main": "",
   "scripts": {
-    "build-html": "gulp gulpsmith"
+    "html": "node metalsmith",
+    "publish": "node metalsmith --publish"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "gulp-util": "^3.0.7",
     "jade": "^1.11.0",
     "js-yaml": "^3.4.3",
+    "jstransformer-cdata": "^1.0.0",
     "metalsmith": "^2.1.0",
     "metalsmith-branch": "0.0.4",
     "metalsmith-collections": "^0.7.0",
@@ -40,6 +42,7 @@
     "metalsmith-layouts": "^1.4.2",
     "metalsmith-permalinks": "^0.4.0",
     "metalsmith-tags": "^1.0.0",
+    "moment": "^2.10.6",
     "pretty-hrtime": "^1.0.1",
     "require-dir": "^0.3.0",
     "yargs": "^3.29.0"
