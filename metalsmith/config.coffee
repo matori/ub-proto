@@ -16,6 +16,22 @@ module.exports =
         publicDir: "public"
         publishKey: "public"
 
+    fileMetadataPlugin: [
+        pattern: "*/articles/**/*.html"
+        metadata:
+            layout: "article.jade"
+            type: "article"
+    ,
+        pattern: "*/documents/**/*.html"
+        metadata:
+            layout: "document.jade"
+            type: "document"
+    ,
+        pattern: "*/pages/**/*.html"
+        metadata:
+            type: "page"
+    ]
+
     formatDatePlugin: [
         key: "date"
         newKey: "fmtDate"
@@ -43,7 +59,7 @@ module.exports =
     feedPlugin:
         destination: "feed/index.xml"
         data:
-            layout: "feed.jade"
+            layout: "xml-feed.jade"
 
 # hostname は metadata から取ってるくるので指定しないでください
     sitemapPlugin:
@@ -59,7 +75,7 @@ module.exports =
         dropIndex: true
         lastmodKey: "fmtModified.iso8601"
         data:
-            layout: "sitemap.jade"
+            layout: "xml-sitemap.jade"
 
     collectionsPlugin:
         articles:

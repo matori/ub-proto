@@ -1,0 +1,21 @@
+mixin meta(name, content)
+    - var attrs = {};
+    - var httpEquivRegExp = /^content-(?:encoding|length|language|type|(?:style|script)-type)|default-style|refresh|set-cookie|pragma|cache-control|expires|allow|date|last-modified|location|www-authenticate|x-(?:ua-compatible|dns-prefetch-control|rim-auto-match)$/i;
+    - var ogpRegExp = /^og:/i;
+    - name = typeof name === "string" ? name.trim() : null;
+    - content = typeof content === "string" ? content.trim() : null;
+
+    if name && content
+
+        if name === "charset"
+            - attrs[name] = content
+        else
+            if httpEquivRegExp.test(name)
+                - attrs["http-equiv"] = name
+            else if ogpRegExp.test(name)
+                - attrs["property"] = name
+            else
+                - attrs["name"] = name
+            - attrs["content"] = content
+
+        meta&attributes(attrs)&attributes(attributes)

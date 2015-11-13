@@ -3,6 +3,7 @@
 _ = require "lodash"
 Metalsmith = require "metalsmith"
 msIf = require "metalsmith-if"
+fileMetadata = require "metalsmith-filemetadata"
 collections = require "metalsmith-collections"
 tags = require "metalsmith-tags"
 htmlMinifier = require "metalsmith-html-minifier"
@@ -36,6 +37,7 @@ build = (dir) ->
 
     metalsmith
     .use msIf options.publish, publish config.publishPlugin
+    .use fileMetadata config.fileMetadataPlugin
     .use formatDate config.formatDatePlugin
 
     for permalink in config.permalinksPlugin
