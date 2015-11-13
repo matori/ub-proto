@@ -47,17 +47,19 @@ module.exports =
 
 # hostname は metadata から取ってるくるので指定しないでください
     sitemapPlugin:
-        changefreq: "weekly"
-        pattern: [
+        filter: [
             "**/*.html"
             "!**/page/**/*.html"
             "!**/category/**/*.html"
         ]
-        priority: undefined
-        output: "sitemap.xml"
-        omitExtension: false
-        omitIndex: true
-        modifiedProperty: "fmtModified.iso8601"
+        hostname: ""
+        dest: "sitemap.xml"
+        changefreq: null
+        priority: null
+        dropIndex: true
+        lastmodKey: "fmtModified.iso8601"
+        data:
+            layout: "sitemap.jade"
 
     collectionsPlugin:
         articles:

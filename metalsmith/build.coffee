@@ -24,7 +24,7 @@ build = (dir) ->
     metalsmith = new Metalsmith dir
 
     msMetadata = loadMetadata dir, config.src, config.metadataFiles
-#    sitemapObj = _.assign {hostname: msMetadata.site.url}, config.sitemapPlugin
+    sitemapObj = _.assign config.sitemapPlugin, {hostname: msMetadata.site.url}
 
     # initialize
     metalsmith
@@ -47,16 +47,7 @@ build = (dir) ->
     .use tags config.tagsPlugin
     .use lastBuild config.lastBuildPlugin
     .use feed config.feedPlugin
-    .use sitemap
-        filter: "**/*.html"
-        hostname: "https://example.com"
-        dest: "sitemap.xml"
-        changefreq: null
-        priority: null
-        dropIndex: true
-        lastmodKey: "fmtModified.iso8601"
-        data:
-            layout: "sitemap.jade"
+    .use sitemap sitemapObj
     .use layouts config.layoutsPlugin
     .use msIf options.publish, htmlMinifier config.htmlMinifierPlugin
 
