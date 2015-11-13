@@ -35,7 +35,6 @@
     "metalsmith": "^2.1.0",
     "metalsmith-branch": "0.0.4",
     "metalsmith-collections": "^0.7.0",
-    "metalsmith-feed": "^0.2.0",
     "metalsmith-filemetadata": "0.0.4",
     "metalsmith-html-minifier": "^1.1.0",
     "metalsmith-if": "^0.1.1",
@@ -43,8 +42,11 @@
     "metalsmith-permalinks": "^0.4.0",
     "metalsmith-tags": "^1.0.0",
     "moment": "^2.10.6",
+    "multimatch": "^2.0.0",
     "pretty-hrtime": "^1.0.1",
     "require-dir": "^0.3.0",
+    "url": "^0.11.0",
+    "validator": "^4.2.1",
     "yargs": "^3.29.0"
   },
   "dependencies": {

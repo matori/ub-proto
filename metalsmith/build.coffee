@@ -1,25 +1,30 @@
 "use strict"
 
+_ = require "lodash"
 Metalsmith = require "metalsmith"
 msIf = require "metalsmith-if"
 collections = require "metalsmith-collections"
 tags = require "metalsmith-tags"
 htmlMinifier = require "metalsmith-html-minifier"
 layouts = require "metalsmith-layouts"
-permalinks = require "./lib/permalinks"
-feed = require "./lib/feed"
-publish = require "./lib/publish"
-formatDate = require "./lib/formatDate"
-loadMetadata = require "./lib/loadMetadata"
-lastBuild = require "./lib/lastBuild"
-options = require "./lib/options"
-logger = require "./lib/logger"
+permalinks = require "./plugins/permalinks"
+feed = require "./plugins/feed"
+publish = require "./plugins/publish"
+formatDate = require "./plugins/formatDate"
+lastBuild = require "./plugins/lastBuild"
+sitemap = require "./plugins/sitemap"
+displayMsObj = require "./plugins/displayMsObj"
+loadMetadata = require "./libs/loadMetadata"
+options = require "./libs/options"
+logger = require "./libs/logger"
 config = require "./config"
-displayMsObj = require "./lib/displayMsObj"
 
 build = (dir) ->
     logger.start config.src
     metalsmith = new Metalsmith dir
+
+    msMetadata = loadMetadata dir, config.src, config.metadataFiles
+#    sitemapObj = _.assign {hostname: msMetadata.site.url}, config.sitemapPlugin
 
     # initialize
     metalsmith
@@ -27,7 +32,7 @@ build = (dir) ->
     .ignore config.ignore
     .destination config.build
     .clean config.clean
-    .metadata loadMetadata dir, config.src, config.metadataFiles
+    .metadata msMetadata
 
     metalsmith
     .use msIf options.publish, publish config.publishPlugin
@@ -42,6 +47,16 @@ build = (dir) ->
     .use tags config.tagsPlugin
     .use lastBuild config.lastBuildPlugin
     .use feed config.feedPlugin
+    .use sitemap
+        filter: "**/*.html"
+        hostname: "https://example.com"
+        dest: "sitemap.xml"
+        changefreq: null
+        priority: null
+        dropIndex: true
+        lastmodKey: "fmtModified.iso8601"
+        data:
+            layout: "sitemap.jade"
     .use layouts config.layoutsPlugin
     .use msIf options.publish, htmlMinifier config.htmlMinifierPlugin
 

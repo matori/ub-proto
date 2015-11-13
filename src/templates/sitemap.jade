@@ -1,0 +1,11 @@
+doctype xml
+urlset(xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
+    each item in sitemap
+        url
+            loc= item.permalink
+            if item.lastmod
+                lastmod= item.lastmod
+            if item.changefreq
+                changefreq= item.changefreq
+            if item.priority
+                priority= item.priority

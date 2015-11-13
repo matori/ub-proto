@@ -7,7 +7,7 @@ path = require "path"
 yaml = require "js-yaml"
 _ = require "lodash"
 
-loadData = (dir, srcPath, filePath) ->
+getData = (dir, srcPath, filePath) ->
     absPath = path.resolve dir, srcPath, filePath
     file = fs.readFileSync absPath, "utf-8"
     yaml.safeLoad file
@@ -16,10 +16,10 @@ createAssignData = (dir, srcPath, filePath) ->
     ext = extname filePath
     keyName = basename filePath, ext
     data = {}
-    data[keyName] = loadData dir, srcPath, filePath
+    data[keyName] = getData dir, srcPath, filePath
     data
 
-getMetadata = (dir, srcPath, filePaths) ->
+loadMetadata = (dir, srcPath, filePaths) ->
     pkgPath = path.resolve dir, "package.json"
     metadata =
         pkg: require pkgPath
@@ -28,4 +28,4 @@ getMetadata = (dir, srcPath, filePaths) ->
         metadata = _.assign metadata, data
     metadata
 
-module.exports = getMetadata
+module.exports = loadMetadata

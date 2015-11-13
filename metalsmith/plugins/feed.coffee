@@ -7,8 +7,8 @@ plugin = (userSettings = {}) ->
     data =
         contents: new Buffer "", "utf8"
 
-    if userSettings.data?.contents?
-        delete userSettings.data.contents
+    if userSettings.data?.contents
+        userSettings.data.contents = new Buffer userSettings.data.contents, "utf8"
 
     data = _.assign data, userSettings.data
 

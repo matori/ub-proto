@@ -45,6 +45,20 @@ module.exports =
         data:
             layout: "feed.jade"
 
+# hostname は metadata から取ってるくるので指定しないでください
+    sitemapPlugin:
+        changefreq: "weekly"
+        pattern: [
+            "**/*.html"
+            "!**/page/**/*.html"
+            "!**/category/**/*.html"
+        ]
+        priority: undefined
+        output: "sitemap.xml"
+        omitExtension: false
+        omitIndex: true
+        modifiedProperty: "fmtModified.iso8601"
+
     collectionsPlugin:
         articles:
             pattern: "{public,draft}/articles/*.html"

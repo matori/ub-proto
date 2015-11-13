@@ -1,7 +1,7 @@
 "use strict"
 
 _ = require "lodash"
-getDateTime = require "./getDateTime"
+getDateTime = require "../libs/getDateTime"
 
 plugin = (userSetting) ->
     defaultSetting =
