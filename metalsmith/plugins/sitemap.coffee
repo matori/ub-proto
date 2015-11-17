@@ -3,7 +3,7 @@
 _ = require "lodash"
 validator = require "validator"
 match = require "multimatch"
-url = require "url"
+formatUrl = require "../libs/formatUrl"
 
 errorCheck = (opts) ->
     if _.isEmpty opts.hostname
@@ -19,14 +19,6 @@ errorCheck = (opts) ->
 
 isMatch = (file, pattern) ->
     not _.isEmpty match file, pattern
-
-formatUrl = (file, opts) ->
-    permalink = url.resolve opts.hostname, file
-
-    if opts.dropIndex
-        permalink = permalink.replace /index\.html$/, ""
-
-    permalink
 
 plugin = (userSettings) ->
     defaultSettings =
@@ -57,8 +49,12 @@ plugin = (userSettings) ->
             unless isMatch file, opts.filter
                 return
 
+            urls = formatUrl file, opts.hostname, opts.dropIndex
+            fileObj["canonical"] = urls.permalink
+            fileObj["rootRelative"] = urls.rootRelative
+
             itemObj = {
-                permalink: formatUrl file, opts
+                permalink: urls.permalink
                 lastmod: _.get fileObj, opts.lastmodKey
                 changefreq: fileObj.changefreq or opts.changefreq
                 priority: fileObj.priority or opts.priority

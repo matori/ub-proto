@@ -25,6 +25,7 @@ build = (dir) ->
     metalsmith = new Metalsmith dir
 
     msMetadata = loadMetadata dir, config.src, config.metadataFiles
+    msMetadata["lodash"] = require "lodash"
     sitemapObj = _.assign config.sitemapPlugin, {hostname: msMetadata.site.url}
 
     # initialize
@@ -37,19 +38,19 @@ build = (dir) ->
 
     metalsmith
     .use msIf options.publish, publish config.publishPlugin
-    .use fileMetadata config.fileMetadataPlugin
     .use formatDate config.formatDatePlugin
+    .use fileMetadata config.fileMetadataPlugin
+    .use tags config.tagsPlugin
 
     for permalink in config.permalinksPlugin
         metalsmith
         .use permalinks permalink.matchFilter, permalink.pattern
 
     metalsmith
+    .use sitemap sitemapObj
     .use collections config.collectionsPlugin
-    .use tags config.tagsPlugin
     .use lastBuild config.lastBuildPlugin
     .use feed config.feedPlugin
-    .use sitemap sitemapObj
     .use layouts config.layoutsPlugin
     .use msIf options.publish, htmlMinifier config.htmlMinifierPlugin
 

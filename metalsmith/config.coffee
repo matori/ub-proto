@@ -16,22 +16,6 @@ module.exports =
         publicDir: "public"
         publishKey: "public"
 
-    fileMetadataPlugin: [
-        pattern: "*/articles/**/*.html"
-        metadata:
-            layout: "article.jade"
-            type: "article"
-    ,
-        pattern: "*/documents/**/*.html"
-        metadata:
-            layout: "document.jade"
-            type: "document"
-    ,
-        pattern: "*/pages/**/*.html"
-        metadata:
-            type: "page"
-    ]
-
     formatDatePlugin: [
         key: "date"
         newKey: "fmtDate"
@@ -51,8 +35,8 @@ module.exports =
     permalinksPlugin: [
         {matchFilter: "{public,draft}/articles/*.html", pattern: "articles/:slug"}
         {matchFilter: "{public,draft}/documents/*.html", pattern: "documents/:slug"}
-        {matchFilter: "public/pages/*.html", pattern: ":slug"}
-        {matchFilter: "public/pages/*/*.html", pattern: ":parent/:slug"}
+        {matchFilter: "{public,draft}/pages/*.html", pattern: ":slug"}
+        {matchFilter: "{public,draft}/pages/*/*.html", pattern: ":parent/:slug"}
         {matchFilter: "categories/**/*.html", pattern: ""}
     ]
 
@@ -77,13 +61,25 @@ module.exports =
         data:
             layout: "xml-sitemap.jade"
 
+    fileMetadataPlugin: [
+        pattern: "articles/*/index.html"
+        metadata:
+            layout: "article.jade"
+            type: "article"
+    ,
+        pattern: "documents/*/index.html"
+        metadata:
+            layout: "document.jade"
+            type: "document"
+    ]
+
     collectionsPlugin:
         articles:
-            pattern: "{public,draft}/articles/*.html"
+            pattern: "articles/*/index.html"
             sortBy: "date"
             reverse: true
         documents:
-            pattern: "{public,draft}/documents/*.html"
+            pattern: "documents/*/index.html"
             sortBy: "date"
             reverse: true
 
@@ -91,6 +87,7 @@ module.exports =
         handle: "category"
         path: "categories/:tag.html"
         layout: "category.jade"
+        perPage: 1
         sortBy: "date"
         reverse: true
         skipMetadata: false

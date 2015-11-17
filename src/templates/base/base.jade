@@ -2,7 +2,9 @@ doctype html
 
 include mixins/meta
 
-+meta("charset", "utf-8")
-+meta("content-style-type", "test")
-+meta("content-script-type", "test")
-+meta("content-encoding", "test")
+html
+    head
+        include partials/head
+    body
+
+        block content

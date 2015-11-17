@@ -1,9 +1,10 @@
 # サイト全体で使うメタデータ
 ---
 
+url: http://unformedbuilding.com
 title: Unformed Building
 description: Web制作に関係する勉強の記録と覚え書き
-url: http://unformedbuilding.com
+separator: " | "
 author:
     name:
         en: Matori
