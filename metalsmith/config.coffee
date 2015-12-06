@@ -62,12 +62,12 @@ module.exports =
             layout: "xml-sitemap.jade"
 
     fileMetadataPlugin: [
-        pattern: "articles/*/index.html"
+        pattern: "{public,draft}/articles/*.html"
         metadata:
             layout: "article.jade"
             type: "article"
     ,
-        pattern: "documents/*/index.html"
+        pattern: "{public,draft}/documents/*.html"
         metadata:
             layout: "document.jade"
             type: "document"

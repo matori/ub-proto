@@ -9,7 +9,7 @@ mixin meta(name, content)
     if name && content
 
         if name === "charset"
-            - attrs[name] = content;
+            meta(charset="#{content}")&attributes(attributes)
         else
             if httpEquivRegExp.test(name)
                 - attrs["http-equiv"] = name;
@@ -17,6 +17,4 @@ mixin meta(name, content)
                 - attrs["property"] = name;
             else
                 - attrs["name"] = name
-            - attrs["content"] = lodash.escape(content);
-
-        meta&attributes(attrs)&attributes(attributes)
+            meta(content="#{content}")&attributes(attrs)&attributes(attributes)
