@@ -29,6 +29,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
     "gulp-util": "^3.0.7",
+    "htmltidy2": "^0.1.4",
     "jade": "^1.11.0",
     "js-yaml": "^3.4.3",
     "jstransformer-cdata": "^1.0.0",

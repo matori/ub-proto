@@ -14,6 +14,7 @@ publish = require "./plugins/publish"
 formatDate = require "./plugins/formatDate"
 lastBuild = require "./plugins/lastBuild"
 sitemap = require "./plugins/sitemap"
+htmltidy = require "./plugins/htmltidy"
 displayMsObj = require "./plugins/displayMsObj"
 loadMetadata = require "./libs/loadMetadata"
 options = require "./libs/options"
@@ -52,11 +53,12 @@ build = (dir) ->
     .use lastBuild config.lastBuildPlugin
     .use feed config.feedPlugin
     .use layouts config.layoutsPlugin
+    .use htmltidy config.htmltidyPlugin
     .use msIf options.publish, htmlMinifier config.htmlMinifierPlugin
 
     # build
     metalsmith
-    .use displayMsObj()
+#    .use displayMsObj()
     .build (err, files) ->
         if err then throw err
         logger.end config.src, config.build, files

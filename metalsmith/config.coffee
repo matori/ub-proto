@@ -97,6 +97,8 @@ module.exports =
         directory: "src/templates"
         default: "test.jade"
 
+    htmltidyPlugin: require "./tidyConfig"
+
     htmlMinifierPlugin:
         collapseBooleanAttributes: true
         collapseWhitespace: true
